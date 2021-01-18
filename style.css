@@ -23,9 +23,9 @@ heading {
 #gameCanvas {
   border: 5px ridge blue;
   margin: auto;
-  border-radius: 25px;
+  /* border-radius: 25px; */
   width: 800px;
-  height: 700px;
+  height: 650px;
 }
 
 #score,

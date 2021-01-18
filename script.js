@@ -8,40 +8,33 @@ let snakeSpeedX = 1;
 let snakeSpeedY = 1;
 let snakeX = 25;
 let snakeY = 25;
-let rightPressed = false;
-let leftPressed = false;
-let downPressed = false;
-let upPressed = false;
-
-document.addEventListener("keydown", keyDownHandler, false);
-// document.addEventListener("keyup", keyUpHandler, false);
+let bw = 300;
+let bh = 150;
+const box = 10;
 
 var framesPerSecond = 30;
 setInterval(function () {
   drawEverything();
-
-  function keyDownHandler(e) {
-    if (e.key == "Right" || e.key == "ArrowRight") {
-      snakeSpeedY = 0;
-      snakeX = snakeX + snakeSpeedX;
-    } else if (e.key == "Left" || e.key == "ArrowLeft") {
-      snakeSpeedY = 0;
-      snakeX = snakeX - snakeSpeedX;
-    } else if (e.key == "Down" || e.key == "ArrowDown") {
-      snakeSpeedX = 0;
-      snakeY = snakeY + snakeSpeedY;
-    } else if (e.key == "Up" || e.key == "ArrowUp") {
-      snakeSpeedX = 0;
-      snakeY = snakeY - snakeSpeedY;
-    }
-  }
 }, 1000 / framesPerSecond);
 
+function drawBoard() {
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "rgb(2, 7, 159)";
+  for (let x = 0; x < bw; x += box) {
+    for (let y = 0; y < bh; y += box) {
+      ctx.strokeRect(x, y, box, box);
+    }
+  }
+}
 function drawSnake() {
-  ctx.beginPath();
-  ctx.fillRect(snakeX, snakeY, 8, 5);
-  ctx.fillStyle = "green";
-  ctx.fill();
+  let snake = [];
+  snake[0] = { x: box, y: box };
+  for (let i = 0; i < snake.length; i++) {
+    ctx.fillStyle = "green";
+    ctx.fillRect(snake[i].x, snake[i].y, box, box);
+    ctx.strokeStyle = "green";
+    ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+  }
 }
 function drawBall() {
   ctx.beginPath();
@@ -53,34 +46,7 @@ function drawBall() {
 function drawEverything() {
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, 300, 150);
+  drawBoard();
   drawBall();
   drawSnake();
 }
-
-// function moveEverything() {
-//   function moveRight() {
-//     snakeSpeedY = 0;
-//     snakeX = snakeX + snakeSpeedX;
-//   }
-//   function moveLeft() {
-//     snakeSpeedY = 0;
-//     snakeX = snakeX - snakeSpeedX;
-//   }
-//   function moveDown() {
-//     snakeSpeedX = 0;
-//     snakeY = snakeY + snakeSpeedY;
-//   }
-//   function moveUp() {
-//     snakeSpeedX = 0;
-//     snakeY = snakeY - snakeSpeedY;
-//   }
-//   //   if (rightPressed) {
-//   //     moveRight();
-//   //   } else if (leftPressed) {
-//   //     moveLeft();
-//   //   } else if (downPressed) {
-//   //     moveDown();
-//   //   } else if (upPressed) {
-//   //     moveUp();
-//   //   }
-// }

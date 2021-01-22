@@ -1,11 +1,8 @@
 "use strict";
 let canvas = document.getElementById("gameCanvas");
 let ctx = canvas.getContext("2d");
-let ballRadius = 3;
-let ballX = 150;
-let ballY = 77;
-let snakeSpeedX = 1;
-let snakeSpeedY = 1;
+let scoreDisplay = document.getElementById("score");
+
 let bw = 300;
 let bh = 150;
 const gridUnit = 10;
@@ -20,17 +17,14 @@ let snake = [
   { x: 5 * gridUnit, y: 5 * gridUnit },
   { x: 5 * gridUnit, y: 5 * gridUnit },
   { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
-  { x: 5 * gridUnit, y: 5 * gridUnit },
 ];
+let snakeX = snake[0].x;
+let snakeY = snake[0].y;
 
 let snakeDirection;
+
+let score = 0;
+scoreDisplay.textContent = `Score = ${score}`;
 
 document.addEventListener("keydown", keyDownHandler, false);
 
@@ -47,11 +41,13 @@ function keyDownHandler(e) {
 }
 
 window.onload = function () {
-  var framesPerSecond = 10;
+  let framesPerSecond = 9;
   setInterval(function () {
     drawEverything();
     moveEverything();
-    boundaryDetection();
+    if (boundaryDetection()) {
+      console.log("hit");
+    }
   }, 1000 / framesPerSecond);
 };
 
@@ -70,13 +66,16 @@ function drawSnake() {
     ctx.fillRect(snake[i].x, snake[i].y, gridUnit, gridUnit);
     ctx.strokeStyle = "black";
     ctx.strokeRect(snake[i].x, snake[i].y, gridUnit, gridUnit);
+    if (boundaryDetection()) {
+      ctx.fillStyle = "red";
+      ctx.fillRect(snake[i].x, snake[i].y, gridUnit, gridUnit);
+    }
   }
 }
 
 function drawFood() {
   ctx.fillStyle = "red";
   ctx.fillRect(food.x, food.y, gridUnit, gridUnit);
-  console.log(food);
 }
 
 function drawEverything() {
@@ -88,32 +87,45 @@ function drawEverything() {
 }
 
 function moveEverything() {
-  let snakeX = snake[0].x;
-  let snakeY = snake[0].y;
   if (snakeDirection == "right") {
     snakeX += gridUnit;
+    console.log(snakeX);
   } else if (snakeDirection == "left") {
     snakeX -= gridUnit;
+    console.log(snakeX);
   } else if (snakeDirection == "up") {
     snakeY -= gridUnit;
   } else if (snakeDirection == "down") {
     snakeY += gridUnit;
   }
   snake.pop();
-  let newHead = {
+  let snakeHead = {
     x: snakeX,
     y: snakeY,
   };
-  snake.unshift(newHead);
+  snake.unshift(snakeHead);
+
+  if (snakeX == food.x && snakeY == food.y) {
+    score++;
+    snake.unshift(snakeHead);
+    food = {
+      x: Math.floor((Math.random() * bw) / gridUnit) * gridUnit,
+      y: Math.floor((Math.random() * bh) / gridUnit) * gridUnit,
+    };
+  }
 }
 
 function boundaryDetection() {
+  if (
+    snakeX > bw - gridUnit ||
+    snakeX < 0 ||
+    snakeY > bh - gridUnit ||
+    snakeY < 0
+  ) {
+    return true;
+  }
   for (let i = 4; i < snake.length; i++) {
-    const snakeBoundary =
-      snake[i].x === snake[0].x && snake[i].y === snake[0].y;
-    if (snakeBoundary) {
+    if (snakeDirection && snake[i].x === snakeX && snake[i].y === snakeY)
       return true;
-    }
-    if()
   }
 }

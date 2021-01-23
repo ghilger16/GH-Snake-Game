@@ -43,11 +43,14 @@ function keyDownHandler(e) {
     snakeDirection = "up";
   } else if (e.key == "ArrowDown" && snakeDirection != "up") {
     snakeDirection = "down";
+  } else if (e.key == "Enter") {
+    document.location.reload();
   }
+  document.querySelector(".gameInstructionsModal").classList.add("hidden");
 }
 
 window.onload = function () {
-  let framesPerSecond = 9;
+  let framesPerSecond = 8;
   setInterval(function () {
     drawEverything();
     moveEverything();
@@ -90,7 +93,7 @@ function drawFood() {
 
 function drawEverything() {
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, 300, 150);
+  ctx.fillRect(0, 0, bw, bh);
   drawBoard();
   drawSnake();
   drawFood();
@@ -100,10 +103,8 @@ function moveEverything() {
   if (!boundaryDetection()) {
     if (snakeDirection == "right") {
       snakeX += gridUnit;
-      console.log(snakeX);
     } else if (snakeDirection == "left") {
       snakeX -= gridUnit;
-      console.log(snakeX);
     } else if (snakeDirection == "up") {
       snakeY -= gridUnit;
     } else if (snakeDirection == "down") {
@@ -144,11 +145,21 @@ function boundaryDetection() {
 
 function gameOver() {
   document.querySelector(".gameOverModal").classList.remove("hidden");
+
+  document.body.classList.add("noscroll");
+
   if (highScore !== null) {
     if (score > highScore) {
       localStorage.setItem("highScore", score);
+      document.querySelector(
+        ".newBest"
+      ).textContent = `CONGRATULATIONS! \n NEW HIGH SCORE: \n ${score}`;
+      document.querySelector(".newBest").classList.remove("hidden");
+      document.querySelector(".trophy").classList.remove("hidden");
     }
   } else {
     localStorage.setItem("highScore", score);
+  }
+  if (score > highScore) {
   }
 }

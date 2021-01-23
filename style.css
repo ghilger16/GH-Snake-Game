@@ -28,8 +28,22 @@ heading {
   height: 650px;
 }
 
+.gameOverModal {
+  background-color: #23344f;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 325px;
+}
+.hidden {
+  display: none;
+}
+
 #score,
-#length,
+#highScore,
 #difficulty {
   background-color: #4b5257;
   border: none;

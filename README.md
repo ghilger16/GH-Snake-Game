@@ -2,7 +2,7 @@
 
 My take on the classic game written in Javascript, HTML and CSS
 
-Try it [here](https://ghilger16.github.io/GH-Calculator-App/)
+Try it [here](https://ghilger16.github.io/GH-Snake-Game/)
 
 ![](Images/preview.png)
 

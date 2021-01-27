@@ -25,14 +25,14 @@ heading {
   max-block-size: 25%;
 }
 
-#gameCanvas {
+#game-canvas {
   border: 5px ridge blue;
   margin: auto;
   width: 800px;
   height: 650px;
 }
 
-.gameInstructionsModal {
+.game-instructions-modal {
   color: white;
   text-align: center;
   position: fixed;
@@ -44,7 +44,7 @@ heading {
   height: 200px;
 }
 
-.gameOverModal {
+.game-over-modal {
   background-color: #23344f;
   text-align: center;
   position: fixed;
@@ -58,12 +58,12 @@ heading {
   display: none;
 }
 
-.newBest {
+.new-best {
   color: white;
 }
 
 #score,
-#highScore {
+#high-score {
   background-color: #4b5257;
   border: none;
   color: white;

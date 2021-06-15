@@ -3,6 +3,7 @@ body {
   justify-content: center;
   margin: 75px;
   background-color: #52567a;
+  overflow: hidden;
 }
 
 .noscroll {
@@ -27,7 +28,8 @@ heading {
 
 #game-canvas {
   border: 5px ridge blue;
-  margin: auto;
+  margin-left: 325px;
+  margin-bottom: 25px;
   width: 800px;
   height: 650px;
 }
